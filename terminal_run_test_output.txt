@@ -1,0 +1,323 @@
+
+jingwenhuang@jingwendeMBP Python-Final-Project % python3 blind_auction.py
+
+Welcome to the Blind Auction for a Diamond!
+
+                    '
+           '                 '
+   '         '      '      '        '
+      '        \    '    /       '
+          ' .   .-"```"-.  . '
+                \`-._.-`/
+     - -  =      \  |  /      =  -  -
+                ' \ | / '
+          . '      \|/     ' .
+       .         '  `  '         .
+    .          /    .    \           .
+             .      .      .
+
+
+We will have three rounds in this auction.
+**Basic Mechanics:**
+1. **Blind Bidding Round:**
+   - Submit your initial bid without knowing others' bids.
+   - Enter your name and bidding price when prompted.
+   - The bidding round will end once all participants have submitted their bids.
+
+2. **Summary Statistics Round:**
+   - After the blind bidding, you'll see summary statistics:
+     - Highest Bid: [Highest Price]
+     - Middle Bid: [Middle Price]
+   - Participants will have a chance to adjust their bids in the next round.
+
+3. **Adjustment Round:**
+   - You can choose to:
+     - [1] Keep your original bid.
+     - [2] Add your bid (within 50% of the original).
+   - Enter your choice when prompted. And if you choose [2], you should give your bid amount.
+
+4. **Final Results:**
+    The client with the highest final price is the winner.
+
+Enter your name:  Amy 
+Enter your innitial bidding price:  50000
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  Carol WAng
+Enter your innitial bidding price:  60000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  Sara H.
+Enter your innitial bidding price:  t
+Invalid entry. Please enter a valid number.
+Enter your innitial bidding price:  60000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  y
+Invalid entry. Please enter 'yes' or 'no'.
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  DAVE
+Enter your innitial bidding price:  70000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  Henry
+Enter your innitial bidding price:  30000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  no
+The first bind round is finished.
+At the first round, the highest bidding price is $70000.0, and the middle price is $54000.00.
+Let's come to the Adjustment Round!
+Enter your name:  amy
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+3
+Invalid entry. You should enter '1' or '2'.
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+2
+Please enter your final bidding price:  80000
+Your adjustment amount is out of range. You cannot add more than 50% of the original price or reduce the price.
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+70000
+Invalid entry. You should enter '1' or '2'.
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+2
+Please enter your final bidding price:  70000
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  henry woo
+Can't find this name. Please check and enter again.
+Enter your name:  henry
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  sara h.
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  DAVE
+Invalid entry. Please enter 'yes' or 'no'.
+Are there any other bidders? Type 'yes' or 'no':  dave
+Invalid entry. Please enter 'yes' or 'no'.
+Are there any other bidders? Type 'yes' or 'no':  yes
+Enter your name:  dave
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+2
+Please enter your final bidding price:  2000
+Your adjustment amount is out of range. You cannot add more than 50% of the original price or reduce the price.
+Choose an option:
+[1] Keep your original bid.
+[2] Add your bid (within 50% of the original).
+Enter your choice '1' or '2':  
+2
+Please enter your final bidding price:  72000
+
+
+
+
+
+
+
+
+
+
+Thank you. Your bid has been recorded. 
+Are there any other bidders? Type 'yes' or 'no':  no
+The final winner is Dave with price $ 72000.0!
+Thank you for participating in this blind auction. See you next time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

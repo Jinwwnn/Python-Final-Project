@@ -1,25 +1,25 @@
 """
-CS5001 Final Project: Blind Auction For Antique Vase
+CS5001 Final Project: Blind Auction For a Diamond
 
-A bind auction with two rounds. The final winner will take the antique vase.
+A bind auction with three rounds. The final winner will take the diamond.
 """
 from typing import Tuple, Dict
 import os
 
 # use these constants for the prompts and messages.
 _WELCOME_MESSAGE = """
-Welcome to the Blind Auction for a Diamond!\n
+Welcome to the Blind Auction for a Diamond!\n \
                     '
            '                 '
    '         '      '      '        '
-      '        \    '    /       '
-          ' .   .-"```"-.  . '
-                \`-._.-`/
-     - -  =      \  |  /      =  -  -
-                ' \ | / '
-          . '      \|/     ' .
+      '        \\    '    //       '
+          ' .  ..-"```"-.. . '
+               \\`-._.-`//
+     - -  =     \\  |  //     =  -  -
+                '\\ | //'
+          . '     \\|//    ' .
        .         '  `  '         .
-    .          /    .    \           .
+    .         //    .    \\           .
              .      .      .
 """
 _INTRODUCE_MESSAGE = """
@@ -28,7 +28,8 @@ We will have three rounds in this auction.
 1. **Blind Bidding Round:**
    - Submit your initial bid without knowing others' bids.
    - Enter your name and bidding price when prompted.
-   - The bidding round will end once all participants have submitted their bids.
+   - The bidding round will end once all participants \
+have submitted their bids.
 
 2. **Summary Statistics Round:**
    - After the blind bidding, you'll see summary statistics:
@@ -40,25 +41,28 @@ We will have three rounds in this auction.
    - You can choose to:
      - [1] Keep your original bid.
      - [2] Add your bid (within 50% of the original).
-   - Enter your choice when prompted. And if you choose [2], you should give your bid amount.
+   - Enter your choice when prompted. \
+And if you choose [2], you should give your bid amount.
 
 4. **Final Results:**
     The client with the highest final price is the winner.
 """
-_GOODBYE_MESSAGE = """Thank you for participating in this blind auction. See you next time."""
+_GOODBYE_MESSAGE = """Thank you for participating in this blind auction. \
+See you next time."""
 _BIDDING_NAME_PROMPT = """Enter your name:  """
 _BIDDING_PRICE_PROMPT = """Enter your innitial bidding price:  """
-_NEXT_PROMPT = """Are there any other bidders? Type 'yes or 'no':  """
+_NEXT_PROMPT = """Are there any other bidders? Type 'yes' or 'no':  """
 _ADJUST_PROMPT = """Choose an option:
 [1] Keep your original bid.
 [2] Add your bid (within 50% of the original).
-Enter your choice '1' or '2':  
+Enter your choice '1' or '2':
 """
-_ADJUST_PRICE_PROMPT = """ Please enter your final bidding price:  """
+_ADJUST_PRICE_PROMPT = """Please enter your final bidding price:  """
 _COMFIRMATION_MESSAGE = """Thank you. Your bid has been recorded. """
 _INVALID_MESSAGE = """Invalid entry."""
-_NAME_ERROR_MESSAGE = """Can't find this name. Please check and entre again."""
-_OUTRANGE_ERROR_MESSAGE = """Your adjustment amount is out of range. You cannot add more than 50% of the original price or reduce the price."""
+_NAME_ERROR_MESSAGE = """Can't find this name. Please check and enter again."""
+_OUTRANGE_ERROR_MESSAGE = """Your adjustment amount is out of range. \
+You cannot add more than 50% of the original price or reduce the price."""
 
 
 def clear_screen():
@@ -76,7 +80,8 @@ def get_price(message: str) -> float:
         try:
             price = float(input(message))
             return price
-        except ValueError:  # if the client don't enter a number, ask him/her to re-entre.
+        # if the client don't enter a number, ask him/her to re-enter.
+        except ValueError:
             print(f"{_INVALID_MESSAGE} Please enter a valid number.")
 
 
@@ -88,74 +93,86 @@ def get_yes_no_answer(prompt: str) -> bool:
         prompt (str): The prompt message to client.
 
     Returns:
-        bool: True if the answer is 'yes', False if 'no'. 
+        bool: True if the answer is 'yes', False if 'no'.
     """
     while True:
+        # get user input with the provided prompt
+        # removes leading and trailing whitespaces of the answer,
+        # and change it to lowercase
         answer = input(prompt).strip().lower()
         if answer == 'yes':
             return True
         elif answer == 'no':
             return False
+        # not allowed other answer except for 'yes' and 'no'
         else:
             print(f"{_INVALID_MESSAGE} Please enter 'yes' or 'no'.")
 
 
-def blind_round() -> Dict[str,float]:
+def blind_round() -> Dict[str, float]:
     """
-    In the first bind round, we get all client's names and initial bidding price 
-    and save them in a dictionary.
+    In the first bind round, we get all client's names and initial bids,
+    then save them in a dictionary.
     Clients' name are the keys, and prices are the values in the dictionary.
-    
+
     Returns:
         dict: Dictionary with names as keys and prices as values.
     """
     bids = {}
     while True:
-        name = input(_BIDDING_NAME_PROMPT).strip().lower()  # get client's name
+        # get user input with the provided prompt as name
+        # removes leading and trailing whitespaces of the answer,
+        # and change it to lowercase
+        name = input(_BIDDING_NAME_PROMPT).strip().lower()
         initial_price = get_price(_BIDDING_PRICE_PROMPT)  # get price
-        bids[name] = initial_price  # save client's name and price accordingly in the dictinary
-        clear_screen()  # after the client submit price, clear the screen.
+        # save client's name and price in the dictionary.
+        bids[name] = initial_price
+        # clear the screen before get the answer from the next client
+        clear_screen()
         print(_COMFIRMATION_MESSAGE)  # comfirm the client's submission
         # ask the current client if we have the next client
-        # if don't have the next client, break the loop
+        # if don't have the next client, break the loop and end this round
         if not get_yes_no_answer(_NEXT_PROMPT):
             break
     return bids
 
 
-def get_statistics_summary(bids:Dict[str, float]) -> Tuple:
+def get_statistics_summary(bids: Dict[str, float]) -> Tuple:
     """
     Get the middle and highest prices in the bids.
-    
+
     Args:
         bids (dict): Dictionary with names as keys and prices as values.
 
     Return:
         Tuple: The highest_price and middle_price in the bids.
     """
-    highest_price = max(bids.values())  # get the maximum value in the dictionary.
-    middle_price = sum(bids.values()) / len(bids)  # get the middle value in the bids.
+    # get the maximum value in the bids.
+    highest_price = max(bids.values())
+    # get the middle value in the bids.
+    middle_price = sum(bids.values()) / len(bids)
     return highest_price, middle_price
-    
 
-def print_statistics_summary(bids:Dict[str, float]) -> None:
+
+def print_statistics_summary(bids: Dict[str, float]) -> None:
     """
-    Print the middle and highest prices on the screen as clients' adjustment reference.
-    
+    Print the middle and highest prices on the screen.
+
     Args:
         bids (dict): Dictionary with names as keys and prices as values.
     """
     highest_price, middle_price = get_statistics_summary(bids)
-    print(f"The first bind round is finished.\n "
-          f"At the first round, the highest bidding price is ${highest_price}, "
-          f"and the middle price is ${middle_price:.2f}.")
+    print(f"The first bind round is finished.\n"
+          f"At the first round, the highest bidding price is ${highest_price},"
+          f" and the middle price is ${middle_price:.2f}.")
 
 
 def keep_or_update_bids(name: str, bids: Dict[str, float]) -> Dict[str, float]:
     """
-    Keep or add a client's bids according to their answer. 
-    Limit: The client are not allowed to add more than 50% of the original price or reduce the price.
-    
+    Keep or add a client's bids according to their answer.
+    Limit: The client are not allowed to add more than 50% of the original bid
+    or reduce the bid.
+
     Args:
         name (str): Name of the participant.
         bids (dict): Original bids.
@@ -164,22 +181,31 @@ def keep_or_update_bids(name: str, bids: Dict[str, float]) -> Dict[str, float]:
         dict: the dictionary with new values(prices) or original values.
     """
     while True:
-        choice = input(_ADJUST_PROMPT).strip()  # ask client if they want to keep or add bids.
+        # ask client if they want to keep or add bids.
+        # get user input with the provided prompt as name
+        # removes leading and trailing whitespaces of the answer
+        choice = input(_ADJUST_PROMPT).strip()
         # if the client wants to add, the adjustment should satisfy the limit.
         if choice == '2':
             new_price = get_price(_ADJUST_PRICE_PROMPT)
-            # The client are not allowed to add more than 50% of the original price or reduce the price.
-            # if the limit is satisfied, update the new price in the dictionary.
+            # The client are not allowed to add more than 50% of the original
+            #    bid or reduce the bid.
+            # if the limit is satisfied, update the new price.
             if bids[name] <= new_price <= bids[name] * 1.5:
                 bids[name] = new_price
-                clear_screen()  # when the client submit price, clear the screen.
+                # clear the screen before get the answer from the next client
+                clear_screen()
                 print(_COMFIRMATION_MESSAGE)  # comfirm client's submission.
                 break
             else:
                 print(_OUTRANGE_ERROR_MESSAGE)
         elif choice == '1':
+            # clear the screen before get the answer from the next client
+            clear_screen()
+            print(_COMFIRMATION_MESSAGE)  # comfirm client's submission.
             break
-        else:  # if the client do not choose '1' or '2', he/she needs to re-entre.
+        # if the client do not choose '1' or '2', he/she needs to re-enter.
+        else:
             print(f"{_INVALID_MESSAGE} You should enter '1' or '2'.")
     return bids
 
@@ -187,7 +213,7 @@ def keep_or_update_bids(name: str, bids: Dict[str, float]) -> Dict[str, float]:
 def adjust_round(bids: Dict) -> Dict:
     """
     Adjust bids in this round.
-    
+
     Args:
         bids (dict): Original bids.
 
@@ -197,7 +223,8 @@ def adjust_round(bids: Dict) -> Dict:
     while True:
         # ask for client's name first.
         name = input(_BIDDING_NAME_PROMPT).strip().lower()
-        # if the client's name is not exist, ask the client to check typing and re-enter.
+        # if the client's name is not exist,
+        # ask the client to check typing and re-enter.
         if name not in bids:
             print(_NAME_ERROR_MESSAGE)
             continue
@@ -210,13 +237,14 @@ def adjust_round(bids: Dict) -> Dict:
 def get_winner(bids: dict) -> Tuple:
     """
     Find the final winner and the highest price.
-    If we have more than one client with the same highest value, the client who submit bids early is the winner.
-    
+    If we have more than one client with the same highest value,
+     the client who submit bids earlier is the winner.
+
     Args:
         bids (dict): Bids after all the rounds.
 
     Returns:
-        Tuple: The winner's name and final bidding price. 
+        Tuple: The winner's name and final bidding price.
     """
     highest_price = 0
     # Iterate through values in the dictionary
@@ -234,10 +262,14 @@ def run_blind_auction() -> None:
     """
     print(_WELCOME_MESSAGE)
     print(_INTRODUCE_MESSAGE)
+    # run blind round to get the initial bids
     initial_bids = blind_round()
+    # print statistics_summary for the blind round
     print_statistics_summary(initial_bids)
     print("Let's come to the Adjustment Round!")
+    # run blind round to update the bids
     final_bids = adjust_round(initial_bids)
+    # get final winner
     winner_name, winner_price = get_winner(final_bids)
     print(f"The final winner is {winner_name} with price $ {winner_price}!")
     print(_GOODBYE_MESSAGE)
