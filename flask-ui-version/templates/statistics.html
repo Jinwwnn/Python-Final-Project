@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blind Auction Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Auction Statistics</h1>
+        <p>The first blind round is finished.</p>
+        <p>Highest Bidding Price: ${{ highest_price }}</p>
+        <p>Middle Bidding Price: ${{ middle_price | round(2) }}</p>
+
+        <a href="{{ url_for('adjustment') }}" class="button">Proceed to Adjustment Round</a>
+    </div>
+</body>
+</html>

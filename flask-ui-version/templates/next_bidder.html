@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Next Bidder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Next Bidder</h1>
+        <form method="post" action="{{ url_for('next_bidder') }}">
+            <label for="next_bidder">Are there any other bidders? Type 'yes' or 'no':</label>
+            <input type="text" id="next_bidder" name="next_bidder" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

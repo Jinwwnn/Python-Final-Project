@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjustment Round</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adjustment Round</h1>
+        
+        <p>Would you like to keep your original bid or adjust it?</p>
+
+        <form method="post" action="{{ url_for('next_adjustment') }}">
+            <label for="adjust_choice">Choose an option:</label>
+            <select id="adjust_choice" name="adjust_choice" required>
+                <option value="1">Keep original bid</option>
+                <option value="2">Add to bid (within 50% of the original)</option>
+            </select>
+
+            <div id="adjust_amount" style="display: none;">
+                <label for="new_bid">Enter your new bid amount:</label>
+                <input type="number" id="new_bid" name="new_bid" step="0.01" min="0">
+            </div>
+
+            <p>Are there any other participants who want to adjust their bids?</p>
+            <label for="next_adjustment">Type 'yes' or 'no':</label>
+            <input type="text" id="next_adjustment" name="next_adjustment" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Show the new bid input field if the user chooses to adjust their bid
+        document.getElementById('adjust_choice').addEventListener('change', function() {
+            const adjustAmountField = document.getElementById('adjust_amount');
+            if (this.value === '2') {
+                adjustAmountField.style.display = 'block';
+            } else {
+                adjustAmountField.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

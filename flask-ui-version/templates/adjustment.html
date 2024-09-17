@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adjustment Round</title>
+</head>
+<body>
+    <h1>Adjustment Round</h1>
+    <form method="post">
+        <label for="name">Enter your name:</label>
+        <input type="text" name="name" required>
+        <label for="choice">Choose an option:</label>
+        <select name="choice" required>
+            <option value="1">Keep your original bid</option>
+            <option value="2">Add to your bid</option>
+        </select>
+        <div id="new-price-field" style="display:none;">
+            <label for="new_price">Enter your new bidding price:</label>
+            <input type="number" name="new_price" step="0.01">
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+<script>
+    document.querySelector('select[name="choice"]').addEventListener('change', function() {
+        var newPriceField = document.getElementById('new-price-field');
+        if (this.value === '2') {
+            newPriceField.style.display = 'block';
+        } else {
+            newPriceField.style.display = 'none';
+        }
+    });
+</script>
+</html>
