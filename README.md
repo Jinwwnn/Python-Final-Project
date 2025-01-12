@@ -1,4 +1,4 @@
-# Python-Final-Project
+
 # Blind Auction for a Diamond
 
 ## Overview
